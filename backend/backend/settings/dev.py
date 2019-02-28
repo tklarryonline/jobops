@@ -1,4 +1,4 @@
-from backend.settings.common import Common
+from .common import Common
 
 
 class Dev(Common):
