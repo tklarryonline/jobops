@@ -1,6 +1,6 @@
 from rest_framework.routers import SimpleRouter
 
-from jobs.api.views import CompanyViewSet, JobViewSet
+from jobs.api.viewsets import CompanyViewSet, JobViewSet
 
 router = SimpleRouter()
 router.register(r'companies', CompanyViewSet)

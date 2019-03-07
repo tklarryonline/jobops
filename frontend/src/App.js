@@ -1,44 +1,17 @@
 import React, {Component} from 'react';
+import axios from "axios";
 import './App.css';
 import Modal from "./components/Modal";
 
-const jobItems = [
-  {
-    id: 3,
-    title: "Python Developer",
-    description: "Dash Labs",
-    status: "Applied",
-    company: 2
-  },
-  {
-    id: 2,
-    title: "Python Developer",
-    description: "ITbility",
-    status: "Applied",
-    company: 3
-  },
-  {
-    id: 1,
-    title: "Software Developer",
-    description: "CommonCode.",
-    status: "Technical Interview",
-    company: 1
-  },
-  {
-    id: 4,
-    title: "Full-stack Developer",
-    description: "",
-    status: "Initial Interview",
-    company: 4
-  }
-];
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
-      jobsList: jobItems,
+      jobsList: [],
       activeItem: {
         title: "",
         description: "",
@@ -48,17 +21,39 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    this.refreshList();
+  }
+
+  refreshList = () => {
+    axios
+      .get("/api/jobs/")
+      .then(res => this.setState({ jobsList: res.data }))
+      .catch(err => console.log(err));
+  };
+
   toggle = () => {
     this.setState({modal: !this.state.modal});
   };
 
   handleSubmit = item => {
     this.toggle();
-    console.log("save" + JSON.stringify(item));
+    if (item.id) {
+      axios
+        .put(`/api/jobs/${item.id}`, item)
+        .then(res => this.refreshList());
+      return;
+    }
+
+    axios
+      .post("/api/jobs/", item)
+      .then(res => this.refreshList());
   };
 
   handleDelete = item => {
-    console.log("delete" + JSON.stringify(item));
+    axios
+      .delete(`/api/jobs/${item.id}`)
+      .then(res => this.refreshList());
   };
 
   createItem = () => {
