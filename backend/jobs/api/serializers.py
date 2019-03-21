@@ -12,4 +12,5 @@ class CompanySerializer(serializers.ModelSerializer):
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
-        fields = '__all__'
+        fields = ('id', 'title', 'company', 'status', 'description')
+        depth = 1

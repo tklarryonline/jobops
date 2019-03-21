@@ -13,5 +13,5 @@ class CompanyViewSet(ModelViewSet):
 
 class JobViewSet(ModelViewSet):
     serializer_class = JobSerializer
-    queryset = Job.objects.all()
+    queryset = Job.objects.select_related('company').all().order_by('pk')
     permission_classes = [AllowAny]

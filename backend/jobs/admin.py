@@ -5,6 +5,7 @@ from .models import Company, Job
 
 class JobAdmin(admin.ModelAdmin):
     list_display = ('title', 'company', 'status')
+    ordering = ('company__name',)
 
 
 class CompanyAdmin(admin.ModelAdmin):
