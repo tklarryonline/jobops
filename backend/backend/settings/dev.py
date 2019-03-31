@@ -12,7 +12,14 @@ class Dev(Common):
             'PORT': '5432'
         }
     }
+
     # we whitelist localhost:3000 because that's where frontend will be served
     CORS_ORIGIN_WHITELIST = (
         'localhost:3000/'
     )
+
+    @property
+    def INSTALLED_APPS(self):
+        return super(Dev, self).INSTALLED_APPS + [
+            'django_extensions',
+        ]
