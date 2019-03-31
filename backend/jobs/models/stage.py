@@ -15,3 +15,7 @@ class Stage(TimeStampedModel, models.Model):
     @property
     def is_finished(self):
         return 'Finished' if self._is_finished else 'Pending'
+
+    @is_finished.setter
+    def is_finished(self, value: bool):
+        self._is_finished = value

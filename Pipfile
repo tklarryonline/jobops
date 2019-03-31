@@ -6,6 +6,10 @@ verify_ssl = true
 [dev-packages]
 ipython = "*"
 django-extensions = "*"
+coverage = "*"
+pytest-django = "*"
+robber = "*"
+pytest-cov = "*"
 
 [packages]
 django = "*"
