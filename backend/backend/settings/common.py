@@ -29,6 +29,7 @@ class Common(Configuration):
         'django.contrib.staticfiles',
         'corsheaders',
         'rest_framework',
+        'phonenumber_field',
         'jobs',
     ]
 
